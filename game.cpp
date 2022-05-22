@@ -2,6 +2,8 @@
 #include<conio.h>
 #include <windows.h>
 #include <time.h>
+#include <chrono>
+#include <bits/stdc++.h>
 
 #define SCREEN_WIDTH 115
 #define SCREEN_HEIGHT 26
@@ -34,28 +36,20 @@ class Stack
 Stack* createStack(unsigned capacity)
 {
     Stack* stack = new Stack();
-	
     stack->capacity = capacity;
-	
     stack->top = -1;
-	
     stack->array = new char[(stack->capacity * sizeof(char))];
-	
     return stack;
 }
 
 // Stack is full when top is equal to the last index
 int isFull(Stack* stack){
-	
     return stack->top == stack->capacity - 1;
-	
     }
 
 // Stack is empty when top is equal to -1
 int isEmpty(Stack* stack){
-	
     return stack->top == -1;
-	
     }
 
 // Function to add an item to stack.
@@ -140,7 +134,9 @@ void win(){ // printing YOU WIN screen
     cout<<"CONTINUE        MENU";
 	if (getch() == 'a')
         play();
-    }
+    score=0;
+}
+
 
 void win_over(){ // printing You Are intelligent and end game
 	system("cls");
@@ -228,10 +224,21 @@ void play(){
 
     Stack* stack = createStack(6+score); // create stack to store the random pattern
 
+    auto start = chrono::high_resolution_clock::now();
     for (int i=0; i<(6+score); i++){ // printing random pattern and store it on stack
         char x = rand_char();
         gotoxy(SCREEN_WIDTH/2+i-3,10); cout<<x; push(stack,x);
     }
+    auto end = chrono::high_resolution_clock::now();
+    // Calculating total time taken by the program.
+    double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    time_taken *= 1e-9;
+
+    gotoxy(18,2); // printing score top left
+    cout<<"Exe. Time:";
+    gotoxy(28,2);
+    cout<<time_taken;
+
 
     gotoxy(0,5);
     cout<<"-----------------------------------------------------------------------------------------------------------------------";
@@ -240,10 +247,10 @@ void play(){
         Sleep(40);
     }
 
+
     for (int i=0; i<(6+score); i++){ // erasing the random pattern
         gotoxy(SCREEN_WIDTH/2+i-3,10); cout<<' ';
     }
-
 
 
 
@@ -323,7 +330,7 @@ int main()
         cout<<"EECE Cairo University"[i];
         Sleep(100);
     }
-    Sleep(2500);
+    Sleep(2000);
 
 
 
