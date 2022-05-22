@@ -34,20 +34,28 @@ class Stack
 Stack* createStack(unsigned capacity)
 {
     Stack* stack = new Stack();
+	
     stack->capacity = capacity;
+	
     stack->top = -1;
+	
     stack->array = new char[(stack->capacity * sizeof(char))];
+	
     return stack;
 }
 
 // Stack is full when top is equal to the last index
 int isFull(Stack* stack){
+	
     return stack->top == stack->capacity - 1;
+	
     }
 
 // Stack is empty when top is equal to -1
 int isEmpty(Stack* stack){
+	
     return stack->top == -1;
+	
     }
 
 // Function to add an item to stack.
