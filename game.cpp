@@ -315,7 +315,7 @@ int main()
         cout<<"EECE Cairo University"[i];
         Sleep(100);
     }
-    Sleep(2000);
+    Sleep(2500);
 
 
 
